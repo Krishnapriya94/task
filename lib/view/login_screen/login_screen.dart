@@ -45,14 +45,12 @@ class LoginScreen extends StatelessWidget {
                     hintStyle: TextStyle(color: Colors.black38),
                   ),
                   validator: (value) {
-                    if (value != null && value.isNotEmpty) {
-                      if (users["email"] == emailController.text) {
-                        return null;
-                      } else {
-                        return "Invalid credentials";
-                      }
+                    if (value != null &&
+                        value.isNotEmpty &&
+                        value.contains("@")) {
+                      return null;
                     } else {
-                      return "* Required";
+                      return "Enter valid email";
                     }
                   },
                 ),
@@ -75,14 +73,12 @@ class LoginScreen extends StatelessWidget {
                       suffixIcon: Icon(Icons.visibility_off_sharp,
                           color: Colors.black38)),
                   validator: (value) {
-                    if (value != null && value.isNotEmpty) {
-                      if (users["password"] == passController.text) {
-                        return null;
-                      } else {
-                        return "Invalid password";
-                      }
+                    if (value != null &&
+                        value.isNotEmpty &&
+                        value.length >= 6) {
+                      return null;
                     } else {
-                      return "* Required";
+                      return "Enter valid password";
                     }
                   },
                 ),
@@ -114,7 +110,8 @@ class LoginScreen extends StatelessWidget {
                 onTap: () {
                   if (emailKey.currentState!.validate() &&
                       passKey.currentState!.validate()) {
-                    print(users);
+                    users["password"] == passController.text;
+                    users["email"] == emailController.text;
                     Navigator.push(
                         context,
                         MaterialPageRoute(
